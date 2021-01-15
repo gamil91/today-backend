@@ -20,14 +20,14 @@ class UsersController < ApplicationController
     def update
         user = User.find(params[:id])
         if user.update(user_params)
-            render json: {user: UserSerializer.new(current_user)}
+            render json: {user: UserSerializer.new(user)}
         else
             render json: {error: user.errors.full_messages}
         end
     end
 
     def login
-        user = User.find_by(username: params[:username])
+        user = User.find_by(email: params[:email])
         if user && user.authenticate(params[:password])
             token = encode_token(user_id: user.id)
             render json: {user: UserSerializer.new(user), token: token}
