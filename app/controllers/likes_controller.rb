@@ -11,8 +11,7 @@ class LikesController < ApplicationController
     end
 
     def destroy
-        byebug
-        # like = Like.find(params[:id])
+        like = Like.find(params[:id])
         like.destroy
         render json: like
     end

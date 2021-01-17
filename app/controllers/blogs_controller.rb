@@ -15,7 +15,7 @@ class BlogsController < ApplicationController
         # byebug
         blog = Blog.new(user_id: current_user.id, title: params[:title], content: params[:content], private: params[:private])
         if blog.save
-            render json: BlogSerializer.new(blog)
+            render json: blog
         else
             render json: blog.errors.full_messages
         end
@@ -24,7 +24,7 @@ class BlogsController < ApplicationController
     def update
         blog = Blog.find(params[:id])
         if blog.update(blog_params)
-            render json: BlogSerializer.new(blog)
+            render json: blog
         else
             render json: blog.errors.full_messages
         end
