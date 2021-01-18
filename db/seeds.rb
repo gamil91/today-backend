@@ -9,17 +9,17 @@ require 'faker'
     3.times {
         Blog.create(title: Faker::Hipster.word,
                     content: Faker::Hipster.paragraph,
-                    private: false,
+                    private: [true, false].sample,
                     user_id: user.id)
     }
 }
 
 20.times {
-    Like.create(user_id: rand(13..43), blog_id: rand(2..31))
+    Like.create(user_id: rand(1..10), blog_id: rand(1..30))
 }
 
 20.times {
-    Comment.create( user_id: rand(13..43), 
-                    blog_id: rand(2..31),
+    Comment.create( user_id: rand(1..10), 
+                    blog_id: rand(1..30),
                     comment: Faker::TvShows::NewGirl.quote)
 }
