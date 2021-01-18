@@ -19,7 +19,6 @@ class CommentsController < ApplicationController
     end
 
     def destroy
-        byebug
         comment = Comment.find(params[:id])
         comment.destroy
         render json: comment
