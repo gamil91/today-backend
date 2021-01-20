@@ -52,23 +52,22 @@ class BlogsController < ApplicationController
                 end
 
             else
-            
-                if blog.image.is_a? String
-                    if blog.image.length > 0
+                if blog.image.length > 0
                     oldImageId = blog.image.split("/")[7].split(".")[0]
                     Cloudinary::Uploader.destroy(oldImageId)
-                    end
                 end
-
+                
                 if blog.update(blog_params)
                     render json: blog
                 else
                     render json: blog.errors.full_messages
                 end
+         
             end
+                
 
         else
-            # byebug
+            
             if blog.image.is_a? String
                 if blog.image.length > 0
                 oldImageId = blog.image.split("/")[7].split(".")[0]
@@ -91,9 +90,11 @@ class BlogsController < ApplicationController
 
     def destroy
         blog = Blog.find(params[:id])
-        if blog.image.length > 0
-            cloudinaryId = blog.image.split("/")[7].split(".")[0]
-            res = Cloudinary::Uploader.destroy(cloudinaryId)
+        if blog.image.is_a? String
+            if blog.image.length > 0
+            oldImageId = blog.image.split("/")[7].split(".")[0]
+            Cloudinary::Uploader.destroy(oldImageId)
+            end
         end
         # byebug
         blog.destroy
