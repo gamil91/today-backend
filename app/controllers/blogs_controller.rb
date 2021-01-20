@@ -3,12 +3,12 @@ class BlogsController < ApplicationController
     def index
         blogs = Blog.all
         render json: blogs
-        
+      
     end
 
     def show
         blog = Blog.find(params[:id])
-        render json: blog
+        render json: BlogSerializer.new(blog)
     end
     
     def create
@@ -89,52 +89,12 @@ class BlogsController < ApplicationController
 
 
 
-    # def update
-    #     blog = Blog.find(params[:id])
-    #     byebug
-    #     if params[:image].length > 0
-            
-    #         if blog.update(blog_params)
-    #             render json: blog
-    #         else
-    #             render json: blog.errors.full_messages
-    #         end
-
-    #     elsif params[:image].length == 0
-            
-    #         if blog.image != nil
-    #             oldImageId = blog.image.split("/")[7].split(".")[0]
-    #             Cloudinary::Uploader.destroy(oldImageId)
-    #         end
-
-    #         if blog.update(blog_params)
-    #             render json: blog
-    #         else
-    #             render json: blog.errors.full_messages
-    #         end
-
-    #     else
-            
-    #         if blog.image != nil
-    #             oldImageId = blog.image.split("/")[7].split(".")[0]
-    #             Cloudinary::Uploader.destroy(oldImageId)
-    #         end
-
-    #         new_image = Cloudinary::Uploader.upload(params[:image])
-    #         newImageURL = new_image["url"]
-    #         if blog.update(title: params[:title], content: params[:content], private:params[:private], image: newImageURL)
-    #             render json: blog
-    #         else
-    #             render json: blog.errors.full_messages
-    #         end
-
-    #     end
-    # end
-
     def destroy
         blog = Blog.find(params[:id])
-        cloudinaryId = blog.image.split("/")[7].split(".")[0]
-        res = Cloudinary::Uploader.destroy(cloudinaryId)
+        if blog.image.length > 0
+            cloudinaryId = blog.image.split("/")[7].split(".")[0]
+            res = Cloudinary::Uploader.destroy(cloudinaryId)
+        end
         # byebug
         blog.destroy
         render json: blog
