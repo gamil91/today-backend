@@ -31,6 +31,13 @@ class ApplicationController < ActionController::API
         !!current_user
     end
 
+    def get_advice
+        response_string = RestClient.get('https://api.adviceslip.com/advice')
+        response_hash = JSON.parse(response_string)
+        advice = response_hash["slip"]["advice"]
+        render json: {advice:advice}
+    end
+
     def authorized
         render json: {error: "Log in required"}, status: :unauthorized unless logged_in?
     end

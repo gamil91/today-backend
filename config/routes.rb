@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   post '/login', to: 'users#login'
   get '/getuser', to: 'users#get_user'
   get '/getlikedblogs', to: 'likes#get_likes'
+  get '/getadvice', to: 'application#get_advice'
 
 end
