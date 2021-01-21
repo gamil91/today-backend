@@ -8,6 +8,7 @@ class BlogSerializer < ActiveModel::Serializer
   # attribute :user_likes do
   #   object.user.name
   # end
+
   attribute :created_at do
     object.created_at.strftime("%d %b %Y")
   end

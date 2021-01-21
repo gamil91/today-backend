@@ -1,6 +1,6 @@
 require 'faker'
 
-10.times { 
+8.times { 
     funny_name = Faker::FunnyName.two_word_name
     user = User.create(name: funny_name,
                 email: funny_name + '@gmail.com',
@@ -10,7 +10,8 @@ require 'faker'
         Blog.create(title: Faker::Hipster.word,
                     content: Faker::Hipster.paragraph,
                     private: [true, false].sample,
-                    user_id: user.id)
+                    user_id: user.id,
+                    image: Faker::Avatar.image)
     }
 }
 
