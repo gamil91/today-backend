@@ -1,0 +1,4 @@
+class TaskSerializer < ActiveModel::Serializer
+  attributes :id, :name, :finished
+  has_one :list
+end

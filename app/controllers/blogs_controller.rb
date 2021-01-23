@@ -6,10 +6,10 @@ class BlogsController < ApplicationController
       
     end
 
-    def show
-        blog = Blog.find(params[:id])
-        render json: BlogSerializer.new(blog)
-    end
+    # def show
+    #     blog = Blog.find(params[:id])
+    #     render json: BlogSerializer.new(blog)
+    # end
     
     def create
         # byebug
@@ -61,10 +61,8 @@ class BlogsController < ApplicationController
                 else
                     render json: blog.errors.full_messages
                 end
-         
             end
-                
-
+            
         else
             
             if blog.image.is_a? String
