@@ -12,7 +12,7 @@ class TasksController < ApplicationController
 
     def update
         task = Task.all.find(params[:id])
-        if task.update
+        if task.update(task_params)
             render json:task
         else
             render json: task.errors.full_messages
@@ -29,7 +29,7 @@ class TasksController < ApplicationController
     private
     
     def task_params
-        params.permit(:title, :id)
+        params.permit(:name, :finished, :id)
     end
 
 end
