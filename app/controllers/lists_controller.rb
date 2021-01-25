@@ -3,6 +3,8 @@ class ListsController < ApplicationController
 
     def create
         list = List.new(title: params[:title], user_id: current_user.id)
+        list_number = current_user.lists.length
+        list.order_number = list_number + 1
         if list.save
             render json: list
         else
@@ -23,13 +25,31 @@ class ListsController < ApplicationController
     def destroy
         list = List.all.find(params[:id])
         list.destroy
+        
+        lists = current_user.lists
+            lists.map do |list|
+                list.order_number -= 1
+                list.save
+            end
         render json: list
+    end
+
+    def order_lists
+        order = 1
+        lists = params[:lists_array]
+        lists.each do |id|
+            list = List.all.find(id)
+            list.order_number = order
+            order += 1
+            list.save
+        end
+        render json: {message: "Updated"}
     end
 
     private
     
     def list_params
-        params.permit(:title, :id)
+        params.permit(:title, :id, :lists_array)
     end
 
 end

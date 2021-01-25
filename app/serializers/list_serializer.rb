@@ -1,5 +1,10 @@
 class ListSerializer < ActiveModel::Serializer
   attributes :id, :title, :tasks
   has_many :tasks
-  # has_one :user
+  
+  
+  attribute :tasks do
+    object.tasks.sort_by{|task| task.order_number}
+  end
+  
 end
