@@ -4,5 +4,10 @@ class UserSerializer < ActiveModel::Serializer
   has_many :comments
   has_many :liked_blogs, through: :likes, source: :blog
   has_many :lists
-  has_many :tasks, through: :lists
+  # has_many :tasks, through: :lists
+
+  attribute :lists do
+    object.lists.sort_by{|list| list.order_number}
+  end
+  
 end

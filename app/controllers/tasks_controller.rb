@@ -25,18 +25,18 @@ class TasksController < ApplicationController
     def destroy
         task = Task.all.find(params[:id])
         list_id = task.list_id
+        task.destroy
+        
         tasks =  Task.all.select do |task| task.list_id === list_id end
         tasks.map do |task| 
             task.order_number -= 1 
             task.save
         end
-        task.destroy
         render json: task
     end
 
     def order_tasks
         if params[:list_id]
-            byebug
             list = List.all.find(params[:list_id])
             current_tasks = list.tasks.map do |task| task.id end
             task_id = (params[:tasks_array] - current_tasks).join.to_i
