@@ -1,5 +1,5 @@
 class ListSerializer < ActiveModel::Serializer
-  attributes :id, :title, :tasks
+  attributes :id, :title, :tasks, :order_number
   has_many :tasks
   
   

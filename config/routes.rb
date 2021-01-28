@@ -12,5 +12,11 @@ Rails.application.routes.draw do
   get '/getadvice', to: 'application#get_advice'
   post '/updateorder', to: 'tasks#order_tasks'
   post '/updatelistsorder', to: 'lists#order_lists'
+  get '/getlists', to: 'lists#get_lists'
+
+  resources :users do
+    resources :lists
+  end
+
 
 end

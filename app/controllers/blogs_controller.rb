@@ -93,7 +93,7 @@ class BlogsController < ApplicationController
             Cloudinary::Uploader.destroy(oldImageId)
             end
         end
-        # byebug
+       
         blog.destroy
         render json: blog
     end
