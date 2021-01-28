@@ -2,14 +2,11 @@ class BlogsController < ApplicationController
 
     def index
         blogs = Blog.all
-        render json: blogs
+        ordered = Blog.all.sort_by{|blog| blog.id}
+        render json: ordered
       
     end
 
-    # def show
-    #     blog = Blog.find(params[:id])
-    #     render json: BlogSerializer.new(blog)
-    # end
     
     def create
         # byebug
