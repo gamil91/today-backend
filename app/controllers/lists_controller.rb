@@ -46,10 +46,16 @@ class ListsController < ApplicationController
         render json: {message: "Updated"}
     end
 
+    def get_lists
+        users_lists = List.all.select do |list| list.user_id === current_user.id end
+        sorted = users_lists.sort_by{|task| task.order_number}
+        render json: sorted
+    end
+
     private
     
     def list_params
-        params.permit(:title, :id, :lists_array)
+        params.permit(:title, :id, :lists_array, :user_id)
     end
 
 end
