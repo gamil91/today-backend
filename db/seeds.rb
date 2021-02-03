@@ -9,3 +9,4 @@ require 'faker'
                     blog_id: rand(17..27),
                     comment: Faker::TvShows::NewGirl.quote)
 }
+   
