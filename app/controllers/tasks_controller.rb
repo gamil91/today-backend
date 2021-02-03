@@ -56,7 +56,6 @@ class TasksController < ApplicationController
         render json: {message: "Updated"}
     end
 
-    
 
     private
     

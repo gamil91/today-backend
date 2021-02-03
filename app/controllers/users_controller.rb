@@ -43,6 +43,11 @@ class UsersController < ApplicationController
 
     def destroy
         user = User.find(user_params[:id])
+        blogs = user.blogs.select do |b| b.image != "" end
+        blogs.map do |b| 
+            oldImageId = b.image.split("/")[7].split(".")[0]
+            Cloudinary::Uploader.destroy(oldImageId)
+        end
         user.destroy
         render json: user
     end
