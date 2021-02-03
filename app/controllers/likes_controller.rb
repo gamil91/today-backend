@@ -2,7 +2,6 @@ class LikesController < ApplicationController
 
     def create
         like = Like.new(blog_id: params[:blog_id], user_id: current_user.id)
-        # byebug
         if like.save
             render json: like
         else
