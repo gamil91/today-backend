@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
-  resources :tasks
-  resources :lists
-  resources :comments
-  resources :likes
-  resources :blogs
-  resources :users
+
+  root 'welcome#index'
+
+  resources :tasks, only: [:create, :update, :destroy]
+  resources :lists, only: [:create, :update, :destroy]
+  resources :comments, only: [:create, :update, :destroy]
+  resources :likes, only: [:create, :destroy]
+  resources :blogs, only: [:index, :create, :update, :destroy]
+  resources :users, only: [:show, :create, :update, :destroy]
   
   post '/login', to: 'users#login'
   get '/getuser', to: 'users#get_user'
